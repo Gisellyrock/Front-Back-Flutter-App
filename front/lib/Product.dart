@@ -6,5 +6,5 @@ class Products {
   String? category;
   String? description;
   String? image;
-  Float? price;
+  double? price;
 }
