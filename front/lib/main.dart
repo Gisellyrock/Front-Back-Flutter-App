@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class Product {
-  String? product_id;
+  int? product_id;
   String? product_name;
   String? category;
   String? description;
@@ -40,7 +40,7 @@ class Pagina extends StatefulWidget {
   }
 }
 
-Future<void> cadastrarProduct(String? product_id, String? product_name,
+Future<void> cadastrarProduct(int? productId, String? productName,
     String? category, String? description, String? image, double? price) async {
   try {
     final response = await http.post(
@@ -49,8 +49,8 @@ Future<void> cadastrarProduct(String? product_id, String? product_name,
         'Content-type': 'application/json',
       },
       body: jsonEncode(<String, dynamic>{
-        'product_id': product_id,
-        'product_name': product_name,
+        'product_id': productId,
+        'product_name': productName,
         'category': category,
         'description': description,
         'image': image,
@@ -107,7 +107,7 @@ Future<List<Product>> selecionarProducts() async {
 }
 
 class ConteudoPagina extends State<Pagina> {
-  String? product_id;
+  int? product_id;
   String? product_name;
   String? category;
   String? description;
@@ -130,7 +130,7 @@ class ConteudoPagina extends State<Pagina> {
                   TextField(
                     onChanged: (valor) {
                       setState(() {
-                        product_id = valor;
+                        product_id = valor as int?;
                       });
                     },
                     decoration: InputDecoration(labelText: 'Product ID'),

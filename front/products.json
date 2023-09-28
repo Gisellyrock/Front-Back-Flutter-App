@@ -1,0 +1,21 @@
+{
+    "products":[
+        {
+            "product_id":1,
+            "product_name":"Headphone Gamer",
+            "category":"Gamer",
+            "description": "lorem ipsum jsjdd dkdjff",
+            "image": "assets/img/Headphone.jpg",
+            "price": 127.25
+        },
+        {
+            "product_id":2,
+            "product_name":"Headphone Gamer 2",
+            "category":"Gamer",
+            "description": "lorem ipsum aaass ",
+            "image": "assets/img/Headphone2.jpg",
+            "price": 127.25
+        }
+
+    ]
+}
