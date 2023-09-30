@@ -1,7 +1,7 @@
 import 'dart:ffi';
 
 class Products {
-  int? product_id;
+  int? id;
   String? product_name;
   String? category;
   String? description;

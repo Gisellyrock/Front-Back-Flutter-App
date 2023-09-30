@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class Product {
-  int? product_id;
+  int? id;
   String? product_name;
   String? category;
   String? description;
@@ -21,9 +21,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSwatch(
-          primarySwatch: Colors.blueGrey,
+          primarySwatch: Colors.pink,
         ),
       ),
       home: const Pagina(),
@@ -40,8 +41,8 @@ class Pagina extends StatefulWidget {
   }
 }
 
-Future<void> cadastrarProduct(int? productId, String? productName,
-    String? category, String? description, String? image, double? price) async {
+Future<void> cadastrarProduct(int? id, String? productName, String? category,
+    String? description, String? image, double? price) async {
   try {
     final response = await http.post(
       Uri.parse('http://localhost:3000/products'),
@@ -49,7 +50,7 @@ Future<void> cadastrarProduct(int? productId, String? productName,
         'Content-type': 'application/json',
       },
       body: jsonEncode(<String, dynamic>{
-        'product_id': productId,
+        'id': id,
         'product_name': productName,
         'category': category,
         'description': description,
@@ -83,7 +84,7 @@ Future<List<Product>> selecionarProducts() async {
 
       for (var obj in dados) {
         Product p = Product();
-        p.product_id = obj["product_id"];
+        p.id = obj["id"];
         p.product_name = obj["product_name"];
         p.category = obj["category"];
         p.description = obj["description"];
@@ -107,7 +108,7 @@ Future<List<Product>> selecionarProducts() async {
 }
 
 class ConteudoPagina extends State<Pagina> {
-  int? product_id;
+  int? id;
   String? product_name;
   String? category;
   String? description;
@@ -118,7 +119,7 @@ class ConteudoPagina extends State<Pagina> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("9ª aula de Flutter"),
+        title: const Text("Consumindo API"),
       ),
       body: Center(
         child: Column(
@@ -130,10 +131,10 @@ class ConteudoPagina extends State<Pagina> {
                   TextField(
                     onChanged: (valor) {
                       setState(() {
-                        product_id = valor as int?;
+                        id = valor as int?;
                       });
                     },
-                    decoration: InputDecoration(labelText: 'Product ID'),
+                    decoration: InputDecoration(labelText: 'ID'),
                   ),
                   TextField(
                     onChanged: (valor) {
@@ -178,7 +179,7 @@ class ConteudoPagina extends State<Pagina> {
                   ElevatedButton(
                     onPressed: () {
                       setState(() {
-                        cadastrarProduct(product_id, product_name, category,
+                        cadastrarProduct(id, product_name, category,
                             description, image, price);
                       });
                     },
@@ -206,8 +207,7 @@ class ConteudoPagina extends State<Pagina> {
                         return Card(
                           child: Column(
                             children: [
-                              Text(
-                                  "Product ID: ${snapshot.data![index].product_id ?? 'N/A'}"),
+                              Text("ID: ${snapshot.data![index].id ?? 'N/A'}"),
                               Text(
                                   "Product Name: ${snapshot.data![index].product_name ?? 'N/A'}"),
                               Text(
